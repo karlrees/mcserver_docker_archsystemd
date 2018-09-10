@@ -1,0 +1,47 @@
+version: '3.4'
+
+x-mcserver-common:
+  &default-mcserver
+  build: .
+  image: ${DOCKERIMAGENAME}
+  volumes:
+  - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - ${WORLDSFOLDER}:/srv/mcpeserver/worlds
+  privileged: true
+  restart: always
+
+networks:
+ default:
+  driver: macvlan
+  driver_opts:
+   parent: ${NETWORKINTERFACE}
+  ipam:
+   config:
+   - subnet: ${IPPREFIX}.0/24
+
+#for each server, copy and paste one of the example servers
+#be sure to change the name and last three digits of IP address
+
+services:
+ 
+ #first server
+ doughnut:
+  << : *default-mcserver
+  environment:
+   WORLD: doughnut
+  container_name: dougnut
+  networks: 
+   default:
+    ipv4_address: ${IPPREFIX}.201
+ 
+ #second server
+ bob:
+  << : *default-mcserver
+  environment:
+   WORLD: bob
+  container_name: bob
+  networks: 
+   default:
+    ipv4_address: ${IPPREFIX}.202
+
+

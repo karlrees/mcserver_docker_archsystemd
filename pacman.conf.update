@@ -1,0 +1,11 @@
+
+
+[multilib-testing]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+
+[mcpeserver]
+SigLevel = Never
+Server = https://cdn.codehz.one/repo/archlinux/
