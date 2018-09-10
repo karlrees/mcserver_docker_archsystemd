@@ -56,7 +56,7 @@ docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v worlds:/srv/mcpes
 docker build -t karlrees/mcserver_archsystemd .
 ```
 
-6. Start docker container as in step 3 of the first instructions.  Or if you renamed the worlds folder, use the following, replacing worldname with whatever you named the Minecraft world folder:
+6. Start docker container as in step 3 of the first instructions.  Or if you renamed the worlds folder, use the following, replacing "worldname" with whatever you named the Minecraft world folder, and "/path/to" with the absolute path to your worlds folder:
 
 ```
 docker run --privileged -e WORLD=worldname -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/worlds:/srv/mcpeserver/worlds -d --network="host" --restart always karlrees/mcserver_archsystemd
