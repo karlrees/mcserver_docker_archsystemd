@@ -2,11 +2,14 @@ version: '3.4'
 
 x-mcserver-common:
   &default-mcserver
-  build: .
+  build: 
+   context: .
+   args:
+    APKFILE: ${MCAPKFILE:-minecraft.apk}
   image: ${DOCKERIMAGENAME:-karlrees/mcserver_archsystemd}
   volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - ./${WORLDSFOLDER:-worlds}:/srv/mcpeserver/worlds
+  - ${WORLDSFOLDER:-./worlds}:/srv/mcpeserver/worlds
   privileged: true
   restart: always
 
