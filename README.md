@@ -7,9 +7,9 @@ A Docker image and docker-compose file to run one or more instances of a native 
 
 My kids wanted a Minecraft (Bedrock) server so that they can play the same worlds on any of their devices at home.  We stumbled upon mcpelauncher (https://github.com/MCMrARM/mcpelauncher-linux) and then mcpeserver (https://github.com/codehz/mcpeserver).
 
-This worked well for a single server, but kids each have their own worlds they want to serve.  The only existing option for multiple servers would be to change the ports, at which point I would need to teach my kids how to add a server manually (which isn't even an available option on some platforms).
+This worked well for a single server, but my kids each have their own worlds they want to serve.  The only existing option for multiple servers would be to change the ports, at which point I would need to teach my kids how to add a server manually (which isn't even an available option on some platforms).
 
-My initial instinct was to run a VM for each server, but as I started to add up the resources needed for all the servers my kids wanted, I quickly realized this wasn't this wouldn't scale well.  So I decided it was time to teach myself about Docker.
+My initial instinct was to run a VM for each server, but as I started to add up the resources needed for all the servers my kids wanted, I quickly realized this wouldn't scale well.  So I decided it was time to teach myself about Docker.
 
 The biggest challenge was to figure out how to get systemd running on an ArchLinux, as that was required for codehz/mcpeserver.  Now, I realize that running systemd in Docker is generally considered a no-no, but I was in a hurry and didn't want to reverse engineer mcpeserver to run it without systemd (saving that for a future project).
 
