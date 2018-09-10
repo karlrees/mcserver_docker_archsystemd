@@ -16,6 +16,13 @@ The biggest challenge was to figure out how to get systemd running on an ArchLin
 *So this is my first Docker project.  Don't be too hard on me if I'm doing something terribly wrong.*
 
 
+## Prerequisites
+
+- Docker
+- docker-compose
+- Minecraft x86 .apk file (e.g. use mcpelauncher to access the Minecraft apk file)
+- 
+
 ## Instructions
 
 *To build/run a single server using a pre-existing Bedrock world folder:*
@@ -25,7 +32,7 @@ The biggest challenge was to figure out how to get systemd running on an ArchLin
 3. Rename your Minecraft world folder to "worldname" or some other appropriate name (optional) 
 4. Create or locate server.properties file, being sure to replace the level-name and level-dir attribute values with "worldname" (or whatever you named the Minecraft world folder).
 5. Rename server.properties to worldname.cfg (or whatever you named the Minecraft world folder).
-6. Save the latest Minecraft x86 apk file as Minecraft.apk in the docker project folder.  If needed, use mcpelauncher to access the Minecraft apk file.
+6. Save the latest Minecraft x86 apk file as Minecraft.apk in the docker project folder.
 7. Build docker image.
 
 ```
@@ -44,10 +51,14 @@ docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v worlds:/srv/mcpes
 2. For each of your Minecraft worlds, save the Minecraft world folder with a different name under the root worlds folder.
 3. For each world, create or locate a server.properties file, being sure to replace the level-name and level-dir attribute values with "worldname" (or whatever you named the Minecraft world folder).
 4. Save each world's server.properties as worldname.cfg (or whatever you named the Minecraft world folder).
-5. Save the latest Minecraft x86 apk file as minecraft.apk in the docker project folder.  If needed, use mcpelauncher to access the Minecraft apk file.
+5. Save the latest Minecraft x86 apk file as minecraft.apk in the docker project folder.
 6. Edit envirnonment variables as needed (e.g. change the IP Prefix to match your subnet, eth0 to match your network interface)
 7. Edit the docker-compose file to include a separate section for each server.  Be sure to change the name for each server to match what you used in step 2.  Be sure to change the IP address as well.
-8. Run "docker-compose up -d."
+8. Run docker-cmpose
+
+```
+docker-compose up -d
+```
 
 
 *Sorry for the terse instructions.  Just thought it'd be better to share with terse instructions than not at all.*
