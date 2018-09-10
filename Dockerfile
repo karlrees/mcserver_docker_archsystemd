@@ -4,6 +4,7 @@ ENV container docker
 # set minecraft world name and port
 ENV WORLD='default'
 ENV MCPORT=19132
+ENV APKFILE=minecraft.apk
 
 EXPOSE $MCPORT
 
@@ -33,8 +34,11 @@ RUN pacman --noconfirm -Syu mcpeserver mcpeserver-core
 RUN install -dm 0755 -o mcpeserver /srv/mcpeserver
 
 # unpack minecraft apk into image
-COPY minecraft.apk /srv/mcpeserver/minecraft.apk
-RUN cd /srv/mcpeserver && mcpeserver unpack --apk minecraft.apk
+COPY $APKFILE /srv/mcpeserver/minecraft.apk
+RUN if [ -s "/srv/mcpeserver/minecraft.apk" ];\
+then cd /srv/mcpeserver && mcpeserver unpack --apk minecraft.apk;\
+else echo " $APKFILE is empty. Build will not work unless you replace it with a real APK file. ";\
+fi
 
 # declare volume for minecraft worlds
 VOLUME ["/srv/mcpeserver/worlds"]
