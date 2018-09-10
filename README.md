@@ -1,4 +1,4 @@
-# Project Title
+# Minecraft Server (Bedrock) for Docker
 
 A Docker image and docker-compose file to run one or more instances of a native Minecraft Bedrock server using codehz/mcpeserver in an ArchLinux environment wth systemd.
 
