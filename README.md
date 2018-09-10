@@ -21,7 +21,6 @@ The biggest challenge was to figure out how to get systemd running on an ArchLin
 - Docker
 - docker-compose
 - Minecraft x86 .apk file (e.g. use mcpelauncher to access the Minecraft apk file)
-- 
 
 ## Instructions
 
