@@ -35,7 +35,7 @@ docker build -t karlrees/mcserver_archsystemd .
 8. Start docker container (replacing worldname with whatever you named the Minecraft world folder)
 
 ```
-docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v ./worlds:/srv/mcpeserver/worlds -e WORLD='worldname' -d --restart always karlrees/mcserver_archsystemd
+docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v worlds:/srv/mcpeserver/worlds -e WORLD='worldname' -d --restart always karlrees/mcserver_archsystemd
 ```
 
 *To run multiple servers using multiple pre-existing Bedrock worlds, each running at a separate IP address:*
@@ -45,7 +45,7 @@ docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v ./worlds:/srv/mcp
 3. For each world, create or locate a server.properties file, being sure to replace the level-name and level-dir attribute values with "worldname" (or whatever you named the Minecraft world folder).
 4. Save each world's server.properties as worldname.cfg (or whatever you named the Minecraft world folder).
 5. Save the latest Minecraft x86 apk file as minecraft.apk in the docker project folder.  If needed, use mcpelauncher to access the Minecraft apk file.
-6. Edit .env file as needed (e.g. change the IP Prefix to match your subnet)
+6. Edit envirnonment variables as needed (e.g. change the IP Prefix to match your subnet, eth0 to match your network interface)
 7. Edit the docker-compose file to include a separate section for each server.  Be sure to change the name for each server to match what you used in step 2.  Be sure to change the IP address as well.
 8. Run "docker-compose up -d."
 
