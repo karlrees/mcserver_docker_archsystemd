@@ -35,7 +35,7 @@ docker build -t karlrees/mcserver_archsystemd .
 8. Start docker container (replacing worldname with whatever you named the Minecraft world folder)
 
 ```
-docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v worlds:/srv/mcpeserver/worlds -e WORLD='worldname' -d --restart always karlrees/mcserver_archsystemd
+docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v ./worlds:/srv/mcpeserver/worlds -e WORLD='worldname' -d --restart always karlrees/mcserver_archsystemd
 ```
 
 *To run multiple servers using multiple pre-existing Bedrock worlds, each running at a separate IP address:*
