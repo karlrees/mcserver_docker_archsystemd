@@ -1,6 +1,6 @@
 # Project Title
 
-A Docker image and docker-compose file to run one or more instances of a native Minecraft Bedrock server using codehz/mcpeserver in an ArchLinux environment wth systemd. 
+A Docker image and docker-compose file to run one or more instances of a native Minecraft Bedrock server using codehz/mcpeserver in an ArchLinux environment wth systemd.
 
 
 ## Background
@@ -13,12 +13,12 @@ My initial instinct was to run a VM for each server, but as I started to add up 
 
 The biggest challenge was to figure out how to get systemd running on an ArchLinux, as that was required for codehz/mcpeserver.  Now, I realize that running systemd in Docker is generally considered a no-no, but I was in a hurry and didn't want to reverse engineer mcpeserver to run it without systemd (saving that for a future project).
 
-**So this is my first Docker project.  Don't be too hard on me if I'm doing something terribly wrong.**
+*So this is my first Docker project.  Don't be too hard on me if I'm doing something terribly wrong.*
 
 
-### Instructions
+## Instructions
 
-To build/run a single server using a pre-existing Bedrock world folder:
+*To build/run a single server using a pre-existing Bedrock world folder:*
 
 1. Create a root "worlds" folder.
 2. Save your Minecraft world folder under the root worlds folder.
@@ -28,17 +28,17 @@ To build/run a single server using a pre-existing Bedrock world folder:
 6. Save the latest Minecraft x86 apk file as Minecraft.apk in the docker project folder.  If needed, use mcpelauncher to access the Minecraft apk file.
 7. Build docker image.
 
-...
+```
 docker build -t karlrees/mcserver_archsystemd .
-...
+```
 
 8. Start docker container (replacing worldname with whatever you named the Minecraft world folder)
 
-...
+```
 docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v worlds:/srv/mcpeserver/worlds -e WORLD='worldname' -d --restart always karlrees/mcserver_archsystemd
-...
+```
 
-To run multiple servers using multiple pre-existing Bedrock worlds, each running at a separate IP address:
+*To run multiple servers using multiple pre-existing Bedrock worlds, each running at a separate IP address:*
 
 1. Create a root "worlds" folder.
 2. For each of your Minecraft worlds, save the Minecraft world folder with a different name under the root worlds folder.
@@ -50,4 +50,4 @@ To run multiple servers using multiple pre-existing Bedrock worlds, each running
 8. Run "docker-compose up -d."
 
 
-Sorry for the terse instructions.  Just thought it'd be better to share with terse instructions than not at all.
+*Sorry for the terse instructions.  Just thought it'd be better to share with terse instructions than not at all.*
