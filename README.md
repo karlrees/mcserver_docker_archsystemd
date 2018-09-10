@@ -35,7 +35,7 @@ The biggest challenge was to figure out how to get systemd running on an ArchLin
 docker build -t karlrees/mcserver_archsystemd .
 ```
 
-3. Start docker container (replacing worldname with whatever you named the Minecraft world folder)
+3. Start docker container
 
 ```
 docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v worlds:/srv/mcpeserver/worlds -d --network="host" --restart always karlrees/mcserver_archsystemd
