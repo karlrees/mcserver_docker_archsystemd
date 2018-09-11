@@ -37,6 +37,7 @@ systemctl enable mcpeserver@${WORLD} &>/dev/null
 # fix permission problems
 # theres got to be a less nuclear option here.  got to figure it out.
 chmod -R 777 /mcresources/worlds/${WORLD}
+chmod -R 777 /srv/mcpeserver/worlds
 
 echo "STARTING MCPESERVER: ${WORLD} on ${HOSTNAME}:${MCPORT} ..."
 
