@@ -27,9 +27,12 @@ sed -i -e "s/=world/=$WORLD/g" "/mcresources/worlds/${WORLD}.cfg"
 sed -i -e "s/=19132/=$MCPORT/g" "/mcresources/worlds/${WORLD}.cfg"
 
 # link custom cfg file if not already linked
-if ! [ -f "/srv/mcpeserver/${WORLD}.cfg" ]; then
- ln -s "/mcresources/worlds/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg" 
-fi
+# commenting out and switching to just making a copy because it seemed to have probelms when in Windows
+#if ! [ -f "/srv/mcpeserver/${WORLD}.cfg" ]; then
+# ln -s "/mcresources/worlds/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg" 
+#fi
+
+cp "/mcresources/worlds/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg"
 
 # enable mcpeserver service
 systemctl enable mcpeserver@${WORLD} &>/dev/null
