@@ -6,10 +6,10 @@ x-mcserver-common:
    context: .
    args:
     APKFILE: ${MCAPKFILE:-minecraft.apk}
-  image: ${DOCKERIMAGENAME:-karlrees/mcserver_archsystemd}
+  image: ${DOCKERIMAGENAME:-karlrees/mcserver_docker_archsystemd}
   volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - ${WORLDSFOLDER:-./worlds}:/srv/mcpeserver/worlds
+  - ${RESOURCEFOLDER:-./resources}:/mcresources
   privileged: true
   restart: always
 
@@ -32,7 +32,7 @@ services:
   << : *default-mcserver
   environment:
    WORLD: doughnut
-  container_name: dougnut
+  container_name: doughnut
   networks: 
    default:
     ipv4_address: ${IPPREFIX:-192.168.0}.201
@@ -46,5 +46,6 @@ services:
   networks: 
    default:
     ipv4_address: ${IPPREFIX:-192.168.0}.202
+
 
 

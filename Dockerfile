@@ -1,10 +1,11 @@
 FROM base/archlinux
 ENV container docker
 
-# set minecraft world name and port
+# set minecraft world name and port and apk filename
 ENV WORLD='default'
-ARG MCPORT=19132
+ENV MCPORT=19132
 ARG APKFILE=minecraft.apk
+ENV MCAPKFILE=$APKFILE
 
 EXPOSE $MCPORT
 
@@ -33,15 +34,12 @@ RUN cat /tmp/pacman.conf.update >> /etc/pacman.conf && rm -f /tmp/pacman.conf.up
 RUN pacman --noconfirm -Syu mcpeserver mcpeserver-core
 RUN install -dm 0755 -o mcpeserver /srv/mcpeserver
 
-# unpack minecraft apk into image
-COPY $APKFILE /srv/mcpeserver/minecraft.apk
-RUN if [ -s "/srv/mcpeserver/minecraft.apk" ];\ 
-then cd /srv/mcpeserver && mcpeserver unpack --apk minecraft.apk;\ 
-else echo "$APKFILE is empty. Build will not work unless you replace it with a real APK file";\ 
-fi
+# create and declare volume for minecraft resources
+RUN mkdir /mcresources
+VOLUME ["/mcresources"]
 
-# declare volume for minecraft worlds
-VOLUME ["/srv/mcpeserver/worlds"]
+# copy over default server config file
+COPY configtemplate.cfg /srv/mcpeserver/configtemplate.cfg
 
 # set up startup script
 COPY startup.sh /srv/mcpeserver/
