@@ -22,9 +22,8 @@ if ! [ -f "/mcresources/worlds/${WORLD}.cfg" ]; then
  mv "/srv/mcpeserver/configtemplate.cfg" "/mcresources/worlds/${WORLD}.cfg"
 fi
 
-# fix cfg file world location and port, if needed
+# fix cfg file world location
 sed -i -e "s/=world/=$WORLD/g" "/mcresources/worlds/${WORLD}.cfg"
-sed -i -e "s/=19132/=$MCPORT/g" "/mcresources/worlds/${WORLD}.cfg"
 
 # link custom cfg file if not already linked
 # commenting out and switching to just making a copy because it seemed to have probelms when in Windows
@@ -33,6 +32,9 @@ sed -i -e "s/=19132/=$MCPORT/g" "/mcresources/worlds/${WORLD}.cfg"
 #fi
 
 cp "/mcresources/worlds/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg"
+
+# change server port
+sed -i -e "s/=19132/=$MCPORT/g" "/srv/mcpeserver/${WORLD}.cfg"
 
 # enable mcpeserver service
 systemctl enable mcpeserver@${WORLD} &>/dev/null
