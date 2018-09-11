@@ -44,7 +44,7 @@ docker pull karlrees/mcserver_archsystemd .
 4. Start the docker container, replacing "/path/to/resource/folder" with the folder in which you stored the apk file in step 1. 
 
 ```
-docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_archsystemd
+docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
 ```
 
 ### Single-server / Existing world
@@ -62,7 +62,7 @@ docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource
 9. Start docker container as shown below, replacing "worldname" with whatever you named the Minecraft world folder, and "/path/to" with the absolute path to your worlds folder:
 
 ```
-docker run --privileged -e WORLD=worldname -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_archsystemd
+docker run --privileged -e WORLD=worldname -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
 ```
 
 ### Multiple existing worlds / docker-compose
