@@ -44,7 +44,7 @@ docker pull karlrees/mcserver_archsystemd
 4. Start the docker container, replacing "/path/to/resource/folder" with the "resource" folder in which you stored the apk file in step 2. 
 
 ```
-docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v **/path/to/resource/folder**:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
+docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
 ```
 
 ### Single-server / Existing world
@@ -62,7 +62,7 @@ docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v **/path/to/resour
 9. Start docker container as shown below, replacing "worldname" with whatever your "world" folder is named, and "/path/to/world/folder" with the absolute path to your parent worlds folder:
 
 ```
-docker run --privileged -e WORLD=**worldname** -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v **/path/to/resource/folder**:/mcresources -v **/path/to/worlds/folder**:/srv/mcpeserver/worlds -d --network="host" karlrees/mcserver_docker_archsystemd
+docker run --privileged -e WORLD=worldname -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -v /path/to/worlds/folder:/srv/mcpeserver/worlds -d --network="host" karlrees/mcserver_docker_archsystemd
 ```
 
 ### Multiple existing worlds / docker-compose
