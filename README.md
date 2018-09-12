@@ -5,7 +5,7 @@ A Docker image and docker-compose file to run one or more instances of a native 
 
 ## Changes in this version
 
-### v0.2-alpha
+### v0.2.1
 - Moved the unpacking of the minecraft.apk file to run time instead of build time so that the project can be used without having to rebuild it.
 - Changed the stucture I was using to link external volumes to be more user-friendly (I think)
 - Various other enhancements
