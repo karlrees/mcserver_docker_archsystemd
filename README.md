@@ -38,7 +38,7 @@ The biggest challenge was to figure out how to get systemd running on an ArchLin
 3. Pull the docker image.
 
 ```
-docker pull karlrees/mcserver_archsystemd
+docker pull karlrees/mcserver_docker_archsystemd
 ```
 
 4. Start the docker container, replacing "/path/to/resource/folder" with the absolute path to the "resource" folder in which you stored the apk file in step 2. 
