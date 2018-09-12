@@ -37,6 +37,7 @@ RUN install -dm 0755 -o mcpeserver /srv/mcpeserver
 # create and declare volume for minecraft resources
 RUN mkdir /mcresources
 VOLUME ["/mcresources"]
+RUN mkdir /srv/mcpeserver/worlds
 
 # copy over default server config file
 COPY configtemplate.cfg /srv/mcpeserver/configtemplate.cfg

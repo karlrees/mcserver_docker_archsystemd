@@ -34,17 +34,17 @@ The biggest challenge was to figure out how to get systemd running on an ArchLin
 *To build/run a single server with a new world on the host:*
 
 1. Download the latest Minecraft x86 apk file.
-2. Save the file as "minecraft.apk" to a folder in which you wish to store your Minecraft data.
+2. Save the file as "minecraft.apk" to a folder on the host.  We'll refer to this folder subsequently as the "resource" folder.
 3. Pull the docker image.
 
 ```
-docker pull karlrees/mcserver_archsystemd .
+docker pull karlrees/mcserver_archsystemd
 ```
 
-4. Start the docker container, replacing "/path/to/resource/folder" with the folder in which you stored the apk file in step 1. 
+4. Start the docker container, replacing "/path/to/resource/folder" with the "resource" folder in which you stored the apk file in step 2. 
 
 ```
-docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
+docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v **/path/to/resource/folder**:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
 ```
 
 ### Single-server / Existing world
@@ -52,17 +52,17 @@ docker run --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource
 *To build/run a single server using a pre-existing Bedrock world folder:*
 
 1. Complete steps 1-3 above.
-2. Create a "worlds" subdirectory in the folder in which you saved the apk file
-3. Save your Minecraft world folder under the "worlds" subdirectory
-4. Choose a name for your existing world (e.g. "worldname").
-5. Rename your Minecraft world folder to the new name you chose (e.g. "worldname")
-6. Create or locate the default.cfg file for your world (this is in the same format as server.properties)
-7. Save the default.cfg file as "worldname.cfg" in the worlds folder, where worldname is the name you chose in step 4
-8. Change the level-name and level-dir attribute values from "world" to "worldname" (or whatever name you chose in step 4)
-9. Start docker container as shown below, replacing "worldname" with whatever you named the Minecraft world folder, and "/path/to" with the absolute path to your worlds folder:
+2. Create (or locate) a parent folder to store (or that already stores) your Minecraft worlds.  We'll refer this folder subsequently as the parent "worlds" folder.
+3. Locate the "world" folder that stores the existing Minecraft world data for the world you wish to serve.  This may or may not be named "world", but we'll refer to it subsequently as the "world" folder.
+4. Save the "world" under the parent "worlds" folder.
+5. If needed, rename the "world" folder to a new name of your liking.
+7. Create or locate a default.cfg file for your world (this is in the same format as server.properties)
+8. Save the default.cfg file as "worldname.cfg" in the *"resources"* folder, where worldname is the name of your "world" folder.
+9. Change the level-name and level-dir attribute values from "world" to "worldname" (or whatever your "world" folder is named)
+9. Start docker container as shown below, replacing "worldname" with whatever your "world" folder is named, and "/path/to/world/folder" with the absolute path to your parent worlds folder:
 
 ```
-docker run --privileged -e WORLD=worldname -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /path/to/resource/folder:/mcresources -d --network="host" karlrees/mcserver_docker_archsystemd
+docker run --privileged -e WORLD=**worldname** -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v **/path/to/resource/folder**:/mcresources -v **/path/to/worlds/folder**:/srv/mcpeserver/worlds -d --network="host" karlrees/mcserver_docker_archsystemd
 ```
 
 ### Multiple existing worlds / docker-compose
@@ -75,7 +75,7 @@ docker run --privileged -e WORLD=worldname -v /sys/fs/cgroup:/sys/fs/cgroup:ro -
 git clone https://github.com/karlrees/mcserver_docker_archsystemd
 ```
 
-2. Complete steps 1-8 above, using the resource folder in the source code to store the apk file and worlds.  Repeat steps 3-8 for each world you wish to run.
+2. Complete steps 1-9 above, using the resource folder in the source code to store the apk file and cfg file, and using the worlds folder in the source code as the parent "worlds" folder.  Repeat steps 3-8 for each world you wish to run.
 3. Edit envirnonment variables as needed (e.g. change the IP Prefix to match your subnet, eth0 to match your network interface, etc.)
 4. Edit the docker-compose file to include a separate section for each server.  Be sure to change the name for each server to match what you used in step 2.  Be sure to use a different IP address or each server as well.
 5. Run docker-compose
@@ -87,9 +87,11 @@ docker-compose up -d
 
 *Sorry for any confusing instructions.  Just thought it'd be better to share with terse instructions than not at all.*
 
+## Known Issues
+
+Because of Windows permission difficulties, mounting external volumes for Minecraft worlds does not appear to work when using a Windows host.
+
 ## To-do list
 
-- Run multiple servers off a single docker image
-- Change ports (limited support already in place)
 - Auto-detect apk file name and use latest version unless explicitly overridden
 - See if I can get away from systemd

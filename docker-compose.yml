@@ -10,6 +10,7 @@ x-mcserver-common:
   volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - ${RESOURCEFOLDER:-./resources}:/mcresources
+  - ${WORLDSFOLDER:-./worlds}:/srv/mcpeserver/worlds
   privileged: true
   restart: always
 

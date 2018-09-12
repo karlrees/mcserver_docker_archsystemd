@@ -9,31 +9,20 @@ if [ -s "/mcresources/${MCAPKFILE}" ]; then
 fi
 
 # if world folder does not exist, create it
-mkdir -p -- "/mcresources/worlds/${WORLD}"
+mkdir -p -- "/srv/mcpeserver/worlds/${WORLD}"
 
-# link world folder to /srv/mcpeserver
-mkdir -p -- "/srv/mcpeserver/worlds"
-if ! [ -e "/srv/mcpeserver/worlds/${WORLD}" ]; then
- ln -s "/mcresources/worlds/${WORLD}" "/srv/mcpeserver/worlds/${WORLD}" 
-fi
-
-# if no existing cfg file, copy over default cfg file
-if ! [ -f "/mcresources/worlds/${WORLD}.cfg" ]; then
- mv "/srv/mcpeserver/configtemplate.cfg" "/mcresources/worlds/${WORLD}.cfg"
+# if no existing cfg file, use default cfg file
+if ! [ -f "/mcresources/${WORLD}.cfg" ]; then
+ mv "/srv/mcpeserver/configtemplate.cfg" "/mcresources/${WORLD}.cfg"
 fi
 
 # fix cfg file world location
-sed -i -e "s/=world/=$WORLD/g" "/mcresources/worlds/${WORLD}.cfg"
+sed -i -e "s/=world/=$WORLD/g" "/mcresources/${WORLD}.cfg"
 
-# link custom cfg file if not already linked
-# commenting out and switching to just making a copy because it seemed to have probelms when in Windows
-#if ! [ -f "/srv/mcpeserver/${WORLD}.cfg" ]; then
-# ln -s "/mcresources/worlds/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg" 
-#fi
+# copy custom cfg file to correct location
+cp "/mcresources/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg"
 
-cp "/mcresources/worlds/${WORLD}.cfg" "/srv/mcpeserver/${WORLD}.cfg"
-
-# change server port
+# change default server port
 sed -i -e "s/=19132/=$MCPORT/g" "/srv/mcpeserver/${WORLD}.cfg"
 
 # enable mcpeserver service
@@ -41,8 +30,7 @@ systemctl enable mcpeserver@${WORLD} &>/dev/null
 
 # fix permission problems
 # theres got to be a less nuclear option here.  got to figure it out.
-chmod -R 777 /mcresources/worlds/${WORLD}
-chmod -R 777 /srv/mcpeserver/worlds
+chmod -R 777 "/srv/mcpeserver/worlds/${WORLD}"
 
 echo "STARTING MCPESERVER: ${WORLD} on ${HOSTNAME}:${MCPORT} ..."
 
