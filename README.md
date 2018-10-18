@@ -1,5 +1,7 @@
 # Minecraft Server (Bedrock) for Docker
 
+__*This project has been replaced by https://github.com/karlrees/docker_bedrockserver, which takes advantage of the official server released in the latest Minecraft version.*__
+
 A Docker image and docker-compose file to run one or more instances of a native Minecraft Bedrock server using codehz/mcpeserver in an ArchLinux environment wth systemd.
 
 
